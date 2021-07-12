@@ -1,0 +1,5 @@
+import os
+
+SERVICE_ACCOUNT_KEY_ID = os.environ.get('SERVICE_ACCOUNT_KEY_ID','c3dfdtb531lg009b6bng')
+SERVICE_ACCOUNT_SECRET = os.environ.get('SERVICE_ACCOUNT_SECRET','665df80c49544406974a9a3d7905d351')
+SERVICE_ACCOUNT_EMAIL = os.environ.get('SERVICE_ACCOUNT_EMAIL','c3dfdl49sk8000d74u60@c39ghc9m4b6ce48o0e50.serviceaccount.d21s.com')
