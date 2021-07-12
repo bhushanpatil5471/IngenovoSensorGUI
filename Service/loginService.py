@@ -14,18 +14,20 @@ def encryptPassword(password):
 def decryptPassword(encPassword):
 
     decPassword = rsa.decrypt(encPassword, privateKey).decode()
-    # print(encPassword)
-    # print(decPassword)
+
     return decPassword
 
 
 def loginAuth(userName, password):
-    userDetails = users.userDetails.get(userName)
+    userEncPass = users.userDetails.get(userName)
     # encpass=encryptPassword(password.zfill(16))
     encpass=encryptPassword(password)
     decpass=decryptPassword(encpass)
 
-    if (userDetails == password):
+    # print(password)
+    # print(encpass)
+    # print(decpass)
+    if password == decpass:
         return {'status': 200, 'message': 'Login Successful'}
 
     else:
