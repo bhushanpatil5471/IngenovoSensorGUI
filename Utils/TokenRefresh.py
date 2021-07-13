@@ -2,22 +2,17 @@ import os
 import time
 import jwt       # pip install pyjwt==2.1.0
 import requests  # pip install requests==2.25.1
+from Constants import KeyEmails,Constants
+from Utils import NewAccessToken as accessTkn
 
 # Constants for authentication credentials.
-KEY_ID = os.environ.get('DT_SERVICE_ACCOUNT_KEY_ID', '')
-SECRET = os.environ.get('DT_SERVICE_ACCOUNT_SECRET', '')
-EMAIL = os.environ.get('DT_SERVICE_ACCOUNT_EMAIL', '')
+KEY_ID = KeyEmails.SERVICE_ACCOUNT_KEY_ID
+SECRET = KeyEmails.SERVICE_ACCOUNT_SECRET
+EMAIL = KeyEmails.SERVICE_ACCOUNT_EMAIL
 
 
-class Auth():
-    """
-    Handles automatic refresh of access token every
-    time get_token() is called with a buffer of 1 minute.
-
-    """
-
-    refresh_buffer = 60  # s
-    auth_url = 'https://identity.disruptive-technologies.com/oauth2/token'
+class Auth:
+    auth_url = Constants.refresh_token_url
 
     def __init__(self, key_id: str, email: str, secret: str):
         # Set attributes.
@@ -77,34 +72,8 @@ class Auth():
         self.token = token_json['access_token']
         self.expiration = time.time() + token_json['expires_in']
 
-    def get_token(self):
-        # Check if access token needs a refresh. A 1 minute buffer is added.
-        if self.expiration - time.time() < self.refresh_buffer:
-            # Print expiration message to console.
-            print('Refreshing...')
+        if self.expiration < 60:
+            return accessTkn.get_access_token()
+        else:
+            return self.token
 
-            # Fetch a brand new access token and expiration.
-            self.refresh()
-
-        # Print time until expiration.
-        print('Token expires in {}s.'.format(
-            int(self.expiration - time.time() - self.refresh_buffer),
-        ))
-
-        # Return the token to user.
-        return self.token
-
-
-def function_that_calls_rest_api(access_token: str):
-    # This would usually do something useful.
-    time.sleep(5)
-
-
-if __name__ == '__main__':
-    # Initialize an authentication object.
-    auth = Auth(KEY_ID, EMAIL, SECRET)
-
-    # Do some task, here simulated by an infinite loop.
-    while True:
-        # Simulate some routine that needs authentication for the REST API.
-        function_that_calls_rest_api(auth.get_token())

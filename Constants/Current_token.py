@@ -1,0 +1,3 @@
+curtoken = {
+    'token': ''
+}
