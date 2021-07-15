@@ -11,3 +11,5 @@ users_db = {
         "disabled": False,
     }
 }
+
+token= {"token":""}

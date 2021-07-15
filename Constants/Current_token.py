@@ -1,3 +1,0 @@
-curtoken = {
-    'token': ''
-}

@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-from fastapi import FastAPI, Depends, HTTPException, status
 import uvicorn
 from ControllerEndPoints import ProjectsController, LoginController
 from fastapi.middleware.cors import CORSMiddleware
@@ -113,7 +111,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=60)
+        expire = datetime.utcnow() + timedelta(minutes=120)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -145,7 +143,13 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     return current_user
 
 
-@app.post("/login", response_model=Token)
+class Response(BaseModel):
+    access_token: str
+    token_type: Optional[str] = None
+    status: Optional[str] = None
+
+
+@app.post("/login")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if not user:
@@ -158,7 +162,8 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer", "status": 200}
+
+    return {"access_token": access_token, "token_type": "bearer", "status_code": status.HTTP_200_OK}
 
 
 @app.get("/users/me/", response_model=User)
@@ -177,7 +182,7 @@ def getFreshAccessToken():
     return access_token
 
 
-@app.get("/token/getAccessToken")
+@app.get("/Token/getAccessToken")
 def accessTokenFunc(current_user: User = Depends(get_current_active_user)):
     return accessTkn.get_access_token()
 
