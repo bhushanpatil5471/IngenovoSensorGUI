@@ -49,7 +49,7 @@ def sensorDataSegrigation(rawdata):
         RT_value = reportedTemperature['value']
         RT_updateTimeDefault = reportedTemperature['updateTime']
         yourdate = dateutil.parser.parse(RT_updateTimeDefault)
-        RT_updateTime=dt.strftime(yourdate, '%m/%d/%Y %I:%M:%S %p')
+        RT_updateTime = dt.strftime(yourdate, '%d/%m/%Y %H:%M:%S')
 
         RT_samplesArray = reportedTemperature['samples']
         RT_samples = RT_samplesArray[0]

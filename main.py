@@ -12,7 +12,7 @@ from passlib.context import CryptContext
 from Constants import users
 from Constants import Constants as consts
 import requests
-import json
+from pathlib import Path
 from Service import DeviceDataService
 from Utils import NewAccessToken as accessTkn
 
@@ -176,10 +176,14 @@ async def read_own_items(current_user: User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
 
+@app.get("/getStoredFileAccessToken")
 def getFreshAccessToken():
-    access_token = accessTkn.get_access_token()
+    f = open("cToken", "r")
+    existingToken = f.read()
 
-    return access_token
+
+
+    return existingToken
 
 
 @app.get("/Token/getAccessToken")

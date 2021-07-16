@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d726bd0d-d8b6-46b5-8e5d-7bca5a36f897" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cToken" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Constants/Current_token.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Constants/cToken" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Constants/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Constants/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/loginService.py" beforeDir="false" afterPath="$PROJECT_DIR$/Service/loginService.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/DeviceDataService.py" beforeDir="false" afterPath="$PROJECT_DIR$/Service/DeviceDataService.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
